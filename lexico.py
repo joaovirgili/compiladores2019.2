@@ -86,6 +86,9 @@ def isLetraMinuscula(char):
 def isLetra(char):
     return isLetraMinuscula(char) or isLetraMaiuscula(char)
 
+def isComentario(char):
+    return (char == '#' and COLUNA_ATUAL == 0)
+
 
 # Verifica se próximo caractere é uma quebra de linha
 def isQuebraLinha():
@@ -116,6 +119,8 @@ def trataIdentificador():
     # TODO
     a = 0 # Apenas para não ter que comentar o método inteiro
 
+def trataComentario():
+    a = 0
 
 # Avança para o próximo caractere
 def avancaCaractere():
@@ -133,14 +138,32 @@ def avancaCaractere():
     POSICAO_ATUAL += 1
 
 
+def avancaLinha():
+    global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
+
+    while(isQuebraLinha() == False):
+        avancaCaractere()
+    
+    LINHA_ATUAL += 1
+    COLUNA_ATUAL = 0
+    POSICAO_ATUAL +=1
+
+        
+
+FRASE_ATUAL = ''
 while (POSICAO_ATUAL < INPUT_TAM):
     CHAR_ATUAL = entrada[POSICAO_ATUAL]
-
+      
     if (isNumero(CHAR_ATUAL)):
         trataNumero()
+        FRASE_ATUAL += CHAR_ATUAL
     elif(isLetra(CHAR_ATUAL)):
         trataIdentificador()
+    elif(isComentario(CHAR_ATUAL)):
+        avancaLinha()
+        continue
 
+    print(POSICAO_ATUAL)
     print((LINHA_ATUAL, COLUNA_ATUAL, CHAR_ATUAL))
     avancaCaractere()
 
