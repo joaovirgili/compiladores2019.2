@@ -86,9 +86,9 @@ def isLetraMinuscula(char):
 def isLetra(char):
     return isLetraMinuscula(char) or isLetraMaiuscula(char)
 
+# Verifica se o caractere atual é # (comentario) e se é inicio de frase
 def isComentario(char):
     return (char == '#' and COLUNA_ATUAL == 0)
-
 
 # Verifica se próximo caractere é uma quebra de linha
 def isQuebraLinha():
