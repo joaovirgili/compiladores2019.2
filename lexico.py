@@ -120,7 +120,16 @@ def trataIdentificador():
     a = 0 # Apenas para não ter que comentar o método inteiro
 
 def trataComentario():
-    a = 0
+    #avanca linha
+    global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
+
+    while(isQuebraLinha() == False):
+        avancaCaractere()
+    
+    LINHA_ATUAL += 1
+    COLUNA_ATUAL = 0
+    POSICAO_ATUAL +=1
+
 
 # Avança para o próximo caractere
 def avancaCaractere():
@@ -137,17 +146,6 @@ def avancaCaractere():
         COLUNA_ATUAL += 1
     POSICAO_ATUAL += 1
 
-
-def avancaLinha():
-    global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
-
-    while(isQuebraLinha() == False):
-        avancaCaractere()
-    
-    LINHA_ATUAL += 1
-    COLUNA_ATUAL = 0
-    POSICAO_ATUAL +=1
-
         
 
 FRASE_ATUAL = ''
@@ -160,7 +158,7 @@ while (POSICAO_ATUAL < INPUT_TAM):
     elif(isLetra(CHAR_ATUAL)):
         trataIdentificador()
     elif(isComentario(CHAR_ATUAL)):
-        avancaLinha()
+        trataComentario()
         continue
 
     print(POSICAO_ATUAL)
