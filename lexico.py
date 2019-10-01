@@ -1,6 +1,9 @@
 # TODO
 # 1 - Ajustar os tokens compostos (por exemplo, "Vire Para" devem ser dois tokens)
 # 2 - Implementar tratamento de identificador e numero.
+# 3 - Exibição de erro léxico.
+# 4 - Comparções não case sensitive
+# 5 - Adicionar lista de tokens gerados
 
 
 #################### Inicialização ####################
