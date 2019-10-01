@@ -63,6 +63,22 @@ COLUNA_ATUAL = 1
 POSICAO_ATUAL = 0
 CHAR_ATUAL = ''
 
+PILHA_DE_TOKENS = []
+TABELA_DE_SIMBOLOS = []
+num = []
+
+
+#################### Empilhando os tokens ######################
+def empilha(id, tipo):
+    if(tipo == 'numero'):
+        num.append(id)
+        associacao = {'num' + str(len(num)): id}
+        #adiciona na pilha de tokens
+        PILHA_DE_TOKENS.append(associacao)
+        #adiciona na tabela de simbolos com informacoes
+        TABELA_DE_SIMBOLOS.append(['num' + str(len(num)), id, LINHA_ATUAL])
+    if(tipo == 'letra'):
+        a = 0
 
 #################### Funções de verificação ####################
 
@@ -104,14 +120,30 @@ def isUltimoCaractere():
 def isProxCharSeparador():
     return ord(entrada[POSICAO_ATUAL + 1]) in SEPARADORES
 
+def isCharSeparador():
+    return ord(entrada[POSICAO_ATUAL]) in SEPARADORES
+
 
 #################### Funções de tratamento de tokens ####################
-
 
 # Tratamento de token Número
 def trataNumero():
     # TODO
     a = 0 # Apenas para não ter que comentar o método inteiro
+    
+    FRASE_ATUAL = entrada[POSICAO_ATUAL]
+    avancaCaractere()
+    while(isNumero(entrada[POSICAO_ATUAL])):
+        FRASE_ATUAL += entrada[POSICAO_ATUAL]
+        avancaCaractere()
+    #verificar char apos o numero 
+    if(isLetra(entrada[POSICAO_ATUAL])):
+        print("erro em linha: ", LINHA_ATUAL+1)
+        print(printLinhaComErro(POSICAO_ATUAL))
+        quit()
+    #gera erro ou empilha
+    empilha(FRASE_ATUAL, 'numero')
+    
 
 
 # Tratamento de token Identificador
@@ -131,6 +163,27 @@ def trataComentario():
     POSICAO_ATUAL +=1
 
 
+def printLinhaComErro(posErro):
+    global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
+    
+    linhaAux = LINHA_ATUAL
+    linha = ''
+    #pega inicio de linha
+    while(COLUNA_ATUAL != 0):
+        POSICAO_ATUAL -= 1
+        COLUNA_ATUAL -= 1
+
+    #pega linha com erro
+    while(LINHA_ATUAL == linhaAux):
+        avancaCaractere()
+        linha += entrada[POSICAO_ATUAL]
+        if(POSICAO_ATUAL == posErro):
+            linha += '(erro aqui?)'
+
+    return linha
+
+
+
 # Avança para o próximo caractere
 def avancaCaractere():
     global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
@@ -148,15 +201,15 @@ def avancaCaractere():
 
         
 
-FRASE_ATUAL = ''
 while (POSICAO_ATUAL < INPUT_TAM):
     CHAR_ATUAL = entrada[POSICAO_ATUAL]
       
     if (isNumero(CHAR_ATUAL)):
         trataNumero()
-        FRASE_ATUAL += CHAR_ATUAL
+
     elif(isLetra(CHAR_ATUAL)):
         trataIdentificador()
+
     elif(isComentario(CHAR_ATUAL)):
         trataComentario()
         continue
@@ -165,4 +218,6 @@ while (POSICAO_ATUAL < INPUT_TAM):
     print((LINHA_ATUAL, COLUNA_ATUAL, CHAR_ATUAL))
     avancaCaractere()
 
+print(PILHA_DE_TOKENS)
+print(TABELA_DE_SIMBOLOS)
 f.close()
