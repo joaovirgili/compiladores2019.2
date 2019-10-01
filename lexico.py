@@ -42,5 +42,3 @@ TOKENS = [
     ("sentido", "esquerda"),
     ("sentido", "direita"),
 ]
-
-print(TOKENS)
