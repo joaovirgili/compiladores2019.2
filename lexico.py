@@ -208,6 +208,8 @@ def trataComentario():
 def printLinhaComErro(posErro, erroLabel):
     global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
 
+    colunaErro = 0
+
     linhaAux = LINHA_ATUAL
     linha = ''
     linhaErro = ''
@@ -222,11 +224,13 @@ def printLinhaComErro(posErro, erroLabel):
         avancaCaractere()
         if (entrada[POSICAO_ATUAL] != '\n'):
             linha += entrada[POSICAO_ATUAL]
-        linhaErro += " "
-        if(POSICAO_ATUAL == posErro - 1):
+        if(POSICAO_ATUAL == posErro):
             linhaErro += "|"
+            colunaErro = COLUNA_ATUAL
+        else: 
+            linhaErro += " "
 
-    # print("ERRO({}:{}): {}".format(LINHA_ATUAL, COLUNA_ATUAL, erroLabel))
+    print("ERRO({}:{}): {}".format(LINHA_ATUAL, colunaErro, erroLabel))
     print(linha)
     print(linhaErro)
 
@@ -262,10 +266,10 @@ while (POSICAO_ATUAL < INPUT_TAM):
         trataComentario()
         continue
 
-    print(POSICAO_ATUAL)
-    print((LINHA_ATUAL, COLUNA_ATUAL, CHAR_ATUAL))
+    # print(POSICAO_ATUAL)
+    # print((LINHA_ATUAL, COLUNA_ATUAL, CHAR_ATUAL))
     avancaCaractere()
 
-print(PILHA_DE_TOKENS)
+# print(PILHA_DE_TOKENS)
 #print(TABELA_DE_SIMBOLOS)
 f.close()
