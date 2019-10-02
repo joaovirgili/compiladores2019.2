@@ -1,6 +1,9 @@
-ERRO(2:0): Posição de comentário inválida. # apenas no início da linha
-   DEFINAI#NSTRUCAO Trilha COMO 
-                                 
-ERRO(4:0): Posição de comentário inválida. # apenas no início da linha
-       Mova 3# Passos 
-                       
+ERRO(3:0): Caractere desconhecido
+$    INICIO
+|           
+ERRO(4:14): Numérico com caractere Letra
+        Mova 3a# Passos
+              |         
+ERRO(9:20): Numérico com caractere Letra
+        Mova 1232131a Passos
+                    |        
