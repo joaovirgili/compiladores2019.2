@@ -65,6 +65,8 @@ SEPARADORES = [10, 32, 9]  # 32 = ESPAÇO, 9 = TAB, 10 = QUEBRA DE LINHA
 f = open("casos-de-teste/in1", "r")
 entrada = f.read()
 
+saida = open("casos-de-teste/in1.out", "w")
+
 INPUT_TAM = entrada.__len__()
 LINHA_ATUAL = 0
 COLUNA_ATUAL = 1
@@ -76,6 +78,9 @@ TABELA_DE_SIMBOLOS = []
 numbers = []
 reserved_words = []
 identifiers = []
+
+FLAG_ERRO = False
+
 
 #################### Empilhando os tokens ######################
 def empilha(id, tipo):
@@ -211,7 +216,8 @@ def trataComentario():
 
 def printLinhaComErro(posErro):
     global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
-    
+    FLAG_ERRO = True
+    linhaAux = LINHA_ATUAL
     linha = ''
     #pega inicio de linha
     while(COLUNA_ATUAL != 0):
@@ -227,9 +233,13 @@ def printLinhaComErro(posErro):
 
     return linha
 
+def printArquivoSaida():
+    if (not FLAG_ERRO):
+        for i in PILHA_DE_TOKENS:
+            saida.writelines(str(i) + "\n")    
 
 
-# Avança para o próximo caractere
+# Avança para o próximo caracter
 def avancaCaractere():
     global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
 
@@ -262,7 +272,8 @@ while (POSICAO_ATUAL < INPUT_TAM):
     print(POSICAO_ATUAL)
     print((LINHA_ATUAL, COLUNA_ATUAL, CHAR_ATUAL))
     avancaCaractere()
-
-print(PILHA_DE_TOKENS)
-#print(TABELA_DE_SIMBOLOS)
+printArquivoSaida()
+# print(PILHA_DE_TOKENS)
+# print(TABELA_DE_SIMBOLOS)
+saida.close()
 f.close()
