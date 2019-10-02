@@ -119,6 +119,9 @@ def isLetra(char):
 def isComentario(char):
     return (char == '#' and COLUNA_ATUAL == 0)
 
+def isCharComentario():
+    return entrada[POSICAO_ATUAL] == '#'
+
 # Verifica se próximo caractere é uma quebra de linha
 def isQuebraLinha():
     return ord(entrada[POSICAO_ATUAL]) == 10
@@ -155,6 +158,9 @@ def trataNumero():
     #gera erro ou empilha
     elif(isCharSeparador() or isUltimoCaractere()):
         empilha(FRASE_ATUAL, 'numero')
+    #comentario-erro
+    elif(isCharComentario()):
+        printLinhaComErro(LINHA_ATUAL, "Posição de comentário inválida. # apenas no início da linha")
     else:
         printLinhaComErro(POSICAO_ATUAL, "Caractere desconhecido")
         # quit()
@@ -178,6 +184,9 @@ def trataIdentificador():
             empilha(x, "palavra_reservada")
         else:
             empilha(FRASE_ATUAL, "identificador")
+    #comentario-erro
+    elif(isCharComentario()):
+        printLinhaComErro(LINHA_ATUAL, "Posição de comentário inválida. # apenas no início da linha")
     else:
         printLinhaComErro(LINHA_ATUAL, "Caractere desconhecido")
         # quit() 

@@ -1,38 +1,6 @@
-{('programa', 'programainicio')}
-{('declaracao', 'definainstrucao')}
-{'identificador1': 'Trilha'}
-{('declaracao', 'como')}
-{('bloco', 'inicio')}
-{('instrucao', 'mova')}
-{'numero1': '3'}
-{('instrucao', 'passos')}
-{('instrucao', 'aguarde')}
-{('instrucao', 'ate')}
-{('robo', 'robo')}
-{('condicao', 'pronto')}
-{('instrucao', 'vire')}
-{('para', 'para')}
-{('sentido', 'esquerda')}
-{('instrucao', 'apagar')}
-{('lampada', 'lampada')}
-{('instrucao', 'vire')}
-{('para', 'para')}
-{('sentido', 'direita')}
-{('instrucao', 'mova')}
-{'numero2': '1'}
-{('instrucao', 'passo')}
-{('instrucao', 'aguarde')}
-{('instrucao', 'ate')}
-{('robo', 'robo')}
-{('condicao', 'pronto')}
-{('bloco', 'fim')}
-{('programa', 'execucaoinicio')}
-{('iteracao', 'repita')}
-{'numero3': '3'}
-{('iteracao', 'vezes')}
-{'identificador2': 'Trilha'}
-{('instrucao', 'vire')}
-{('para', 'para')}
-{('sentido', 'direita')}
-{('programa', 'fimexecucao')}
-{('programa', 'fimprograma')}
+ERRO(2:0): Posição de comentário inválida. # apenas no início da linha
+   DEFINAI#NSTRUCAO Trilha COMO 
+                                 
+ERRO(4:0): Posição de comentário inválida. # apenas no início da linha
+       Mova 3# Passos 
+                       
