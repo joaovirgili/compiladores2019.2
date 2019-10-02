@@ -1,11 +1,3 @@
-# TODO
-# 1 - Ajustar os tokens compostos (por exemplo, "Vire Para" devem ser dois tokens)
-# 2 - Implementar tratamento de identificador e numero.
-# 3 - Exibição de erro léxico.
-# 4 - Comparções não case sensitive
-# 5 - Adicionar lista de tokens gerados
-
-
 #################### Inicialização ####################
 
 PALAVRAS_RESERVADAS = [
@@ -40,7 +32,7 @@ PALAVRAS_RESERVADAS = [
     ("instrucao", "acenda"),
     ("instrucao", "aguarde"),
     ("instrucao", "ate"),
-    ("a", "a"),#ta certo?? do exemplo "lampada acessa a frente"
+    ("a", "a"),
     ("condicao", "pronto"),
     ("condicao", "ocupado"),
     ("condicao", "parado"),
@@ -55,10 +47,7 @@ PALAVRAS_RESERVADAS = [
     ("lampada", "lampada"),
     ("pronto", "pronto"),
     ("acesa", "acesa"),
-    ("para", "para")
-
-    
-
+    ("para", "para"),
 ]
 
 SEPARADORES = [10, 32, 9]  # 32 = ESPAÇO, 9 = TAB, 10 = QUEBRA DE LINHA
@@ -152,34 +141,28 @@ def isCharSeparador():
 
 # Tratamento de token Número
 def trataNumero():
-    # TODO
-    a = 0 # Apenas para não ter que comentar o método inteiro
-    
     FRASE_ATUAL = entrada[POSICAO_ATUAL]
     avancaCaractere()
     while(isNumero(entrada[POSICAO_ATUAL])):
         FRASE_ATUAL += entrada[POSICAO_ATUAL]
         avancaCaractere()
+
     #verificar char apos o numero 
     if(isLetra(entrada[POSICAO_ATUAL])):
-        print("erro em linha: ", LINHA_ATUAL+1)
-        print(printLinhaComErro(POSICAO_ATUAL))
-        quit()
+        printLinhaComErro(POSICAO_ATUAL, "Numérico com caractere Letra")
+        # quit()
+
     #gera erro ou empilha
     elif(isCharSeparador() or isUltimoCaractere()):
-        empilha(FRASE_ATUAL, 'numero') 
+        empilha(FRASE_ATUAL, 'numero')
     else:
-        print("erro em linha: ", LINHA_ATUAL+1)
-        print(printLinhaComErro(POSICAO_ATUAL))
-        quit()
+        printLinhaComErro(POSICAO_ATUAL, "Caractere desconhecido")
+        # quit()
     
 
 
 # Tratamento de token Identificador
 def trataIdentificador():
-    # TODO
-    a = 0 # Apenas para não ter que comentar o método inteiro
-
     FRASE_ATUAL = entrada[POSICAO_ATUAL]
     avancaCaractere()
 
@@ -196,9 +179,8 @@ def trataIdentificador():
         else:
             empilha(FRASE_ATUAL, "identificador")
     else:
-        print("erro em linha: ", LINHA_ATUAL+1)
-        print(printLinhaComErro(POSICAO_ATUAL))
-        quit() 
+        printLinhaComErro(LINHA_ATUAL, "Caractere desconhecido")
+        # quit() 
 
 
 
@@ -214,24 +196,39 @@ def trataComentario():
     POSICAO_ATUAL +=1
 
 
-def printLinhaComErro(posErro):
-    global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
+def printLinhaComErro(posErro, erroLabel):
+    global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL, FLAG_ERRO
     FLAG_ERRO = True
+
+    colunaErro = 0
+
     linhaAux = LINHA_ATUAL
     linha = ''
-    #pega inicio de linha
+    linhaErro = ''
+
+    # pega inicio de linha
     while(COLUNA_ATUAL != 0):
         POSICAO_ATUAL -= 1
         COLUNA_ATUAL -= 1
 
-    #pega linha com erro
-    while(isQuebraLinha()):
+    # pega linha com erro
+    while(LINHA_ATUAL == linhaAux):
         avancaCaractere()
-        linha += entrada[POSICAO_ATUAL]
+        if (entrada[POSICAO_ATUAL] != '\n'):
+            linha += entrada[POSICAO_ATUAL]
         if(POSICAO_ATUAL == posErro):
-            linha += '(erro aqui?)'
+            linhaErro += "|"
+            colunaErro = COLUNA_ATUAL
+        else: 
+            linhaErro += " "
 
-    return linha
+    # print("ERRO({}:{}): {}".format(LINHA_ATUAL, colunaErro, erroLabel))
+    # print(linha)
+    # print(linhaErro)
+
+    saida.writelines("ERRO({}:{}): {}".format(LINHA_ATUAL, colunaErro, erroLabel) + "\n") 
+    saida.writelines(linha + "\n")
+    saida.writelines(linhaErro + "\n")
 
 def printArquivoSaida():
     if (not FLAG_ERRO):
@@ -269,8 +266,6 @@ while (POSICAO_ATUAL < INPUT_TAM):
         trataComentario()
         continue
 
-    print(POSICAO_ATUAL)
-    print((LINHA_ATUAL, COLUNA_ATUAL, CHAR_ATUAL))
     avancaCaractere()
 printArquivoSaida()
 # print(PILHA_DE_TOKENS)
