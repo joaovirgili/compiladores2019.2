@@ -1,9 +1,38 @@
-ERRO(4:14): Numérico com caractere Letra
-       Mova 3a Passos 
-             |         
-ERRO(9:14): Numérico com caractere Letra
-       Mova 1a Passo 
-             |        
-ERRO(13:16): Numérico com caractere Letra
-       Repita 3a VEZES Trilha 
-               |               
+{('programa', 'programainicio')}
+{('declaracao', 'definainstrucao')}
+{'identificador1': 'Trilha'}
+{('declaracao', 'como')}
+{('bloco', 'inicio')}
+{('instrucao', 'mova')}
+{'numero1': '3'}
+{('instrucao', 'passos')}
+{('instrucao', 'aguarde')}
+{('instrucao', 'ate')}
+{('robo', 'robo')}
+{('condicao', 'pronto')}
+{('instrucao', 'vire')}
+{('para', 'para')}
+{('sentido', 'esquerda')}
+{('instrucao', 'apagar')}
+{('lampada', 'lampada')}
+{('instrucao', 'vire')}
+{('para', 'para')}
+{('sentido', 'direita')}
+{('instrucao', 'mova')}
+{'numero2': '1'}
+{('instrucao', 'passo')}
+{('instrucao', 'aguarde')}
+{('instrucao', 'ate')}
+{('robo', 'robo')}
+{('condicao', 'pronto')}
+{('bloco', 'fim')}
+{('programa', 'execucaoinicio')}
+{('iteracao', 'repita')}
+{'numero3': '3'}
+{('iteracao', 'vezes')}
+{'identificador2': 'Trilha'}
+{('instrucao', 'vire')}
+{('para', 'para')}
+{('sentido', 'direita')}
+{('programa', 'fimexecucao')}
+{('programa', 'fimprograma')}
