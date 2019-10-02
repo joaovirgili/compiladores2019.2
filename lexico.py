@@ -160,7 +160,7 @@ def trataNumero():
     else:
         # print("erro em linha: ", LINHA_ATUAL+1)
         # print(printLinhaComErro(POSICAO_ATUAL))
-        print(POSICAO_ATUAL, "Caractere desconhecido")
+        printLinhaComErro(POSICAO_ATUAL, "Caractere desconhecido")
         quit()
     
 
@@ -188,7 +188,7 @@ def trataIdentificador():
     else:
         # print("erro em linha: ", LINHA_ATUAL+1)
         # print(printLinhaComErro(POSICAO_ATUAL))
-        print(LINHA_ATUAL, "Caractere desconhecido")
+        printLinhaComErro(LINHA_ATUAL, "Caractere desconhecido")
         quit() 
 
 
