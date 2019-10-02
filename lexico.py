@@ -33,9 +33,10 @@ PALAVRAS_RESERVADAS = [
     ("instrucao", "vire para"),
     ("instrucao", "pare"),
     ("instrucao", "finalize"),
-    ("instrucao", "apague lampada"),
-    ("instrucao", "acenda lampada"),
-    ("instrucao", "aguarde ate"),
+    ("instrucao", "apague"),
+    ("instrucao", "acenda"),
+    ("instrucao", "aguarde"),
+    ("instrucao", "ate"),
     ("condicao", "robo pronto"),
     ("condicao", "robo ocupado"),
     ("condicao", "robo parado"),
@@ -67,19 +68,20 @@ PILHA_DE_TOKENS = []
 TABELA_DE_SIMBOLOS = []
 numbers = []
 reserved_words = []
-
+identifiers = []
 
 #################### Empilhando os tokens ######################
 def empilha(id, tipo):
     if(tipo == 'numero'):
         numbers.append(id)
-        associacao = {'num' + str(len(numbers)): id}
-        #adiciona na pilha de tokens
+        associacao = {tipo + str(len(numbers)): id}
         PILHA_DE_TOKENS.append(associacao)
-        #adiciona na tabela de simbolos com informacoes
-        TABELA_DE_SIMBOLOS.append(['num' + str(len(numbers)), id, LINHA_ATUAL])
-    elif(tipo == 'letra'):
-        a = 0
+        TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
+    elif(tipo == 'identificador'):
+        identifiers.append(id)
+        associacao = {tipo+str(len(identifiers)): id}
+        PILHA_DE_TOKENS.append(associacao)
+        TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
     elif(tipo == 'palavra_reservada'):
         reserved_words.append(id)
         associacao = {id}
@@ -152,7 +154,12 @@ def trataNumero():
         print(printLinhaComErro(POSICAO_ATUAL))
         quit()
     #gera erro ou empilha
-    empilha(FRASE_ATUAL, 'numero')
+    elif(isCharSeparador() or isUltimoCaractere()):
+        empilha(FRASE_ATUAL, 'numero') 
+    else:
+        print("erro em linha: ", LINHA_ATUAL+1)
+        print(printLinhaComErro(POSICAO_ATUAL))
+        quit()
     
 
 
@@ -164,25 +171,22 @@ def trataIdentificador():
     FRASE_ATUAL = entrada[POSICAO_ATUAL]
     avancaCaractere()
 
-    while(isLetra(entrada[POSICAO_ATUAL])):
+    while(isLetra(entrada[POSICAO_ATUAL]) or isNumero(entrada[POSICAO_ATUAL])):
         FRASE_ATUAL += entrada[POSICAO_ATUAL]
         if(isUltimoCaractere()):
             break
         avancaCaractere()
-        
 
-
-    if (isNumero(entrada[POSICAO_ATUAL])):
+    if(isCharSeparador() or isUltimoCaractere()):
+        x = isPalavraReservada(FRASE_ATUAL) if True else False
+        if(x):
+            empilha(x, "palavra_reservada")
+        else:
+            empilha(FRASE_ATUAL, "identificador")
+    else:
         print("erro em linha: ", LINHA_ATUAL+1)
         print(printLinhaComErro(POSICAO_ATUAL))
-        quit()
-
-    x = isPalavraReservada(FRASE_ATUAL) if True else False
-    if(x):
-        empilha(x, "palavra_reservada")
-
-   
-
+        quit() 
 
 
 
@@ -201,7 +205,6 @@ def trataComentario():
 def printLinhaComErro(posErro):
     global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
     
-    linhaAux = LINHA_ATUAL
     linha = ''
     #pega inicio de linha
     while(COLUNA_ATUAL != 0):
@@ -209,7 +212,7 @@ def printLinhaComErro(posErro):
         COLUNA_ATUAL -= 1
 
     #pega linha com erro
-    while(LINHA_ATUAL == linhaAux):
+    while(isQuebraLinha()):
         avancaCaractere()
         linha += entrada[POSICAO_ATUAL]
         if(POSICAO_ATUAL == posErro):
@@ -254,5 +257,5 @@ while (POSICAO_ATUAL < INPUT_TAM):
     avancaCaractere()
 
 print(PILHA_DE_TOKENS)
-print(TABELA_DE_SIMBOLOS)
+#print(TABELA_DE_SIMBOLOS)
 f.close()
