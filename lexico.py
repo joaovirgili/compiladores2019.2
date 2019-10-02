@@ -150,15 +150,17 @@ def trataNumero():
         avancaCaractere()
     #verificar char apos o numero 
     if(isLetra(entrada[POSICAO_ATUAL])):
-        print("erro em linha: ", LINHA_ATUAL+1)
-        print(printLinhaComErro(POSICAO_ATUAL))
+        # print("erro em linha: ", LINHA_ATUAL+1)
+        # print(printLinhaComErro(POSICAO_ATUAL))
+        printLinhaComErro(POSICAO_ATUAL, "Numérico com caractere Letra")
         quit()
     #gera erro ou empilha
     elif(isCharSeparador() or isUltimoCaractere()):
-        empilha(FRASE_ATUAL, 'numero') 
+        empilha(FRASE_ATUAL, 'numero')
     else:
-        print("erro em linha: ", LINHA_ATUAL+1)
-        print(printLinhaComErro(POSICAO_ATUAL))
+        # print("erro em linha: ", LINHA_ATUAL+1)
+        # print(printLinhaComErro(POSICAO_ATUAL))
+        print(POSICAO_ATUAL, "Caractere desconhecido")
         quit()
     
 
@@ -184,8 +186,9 @@ def trataIdentificador():
         else:
             empilha(FRASE_ATUAL, "identificador")
     else:
-        print("erro em linha: ", LINHA_ATUAL+1)
-        print(printLinhaComErro(POSICAO_ATUAL))
+        # print("erro em linha: ", LINHA_ATUAL+1)
+        # print(printLinhaComErro(POSICAO_ATUAL))
+        print(LINHA_ATUAL, "Caractere desconhecido")
         quit() 
 
 
@@ -202,23 +205,30 @@ def trataComentario():
     POSICAO_ATUAL +=1
 
 
-def printLinhaComErro(posErro):
+def printLinhaComErro(posErro, erroLabel):
     global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
-    
+
+    linhaAux = LINHA_ATUAL
     linha = ''
-    #pega inicio de linha
+    linhaErro = ''
+
+    # pega inicio de linha
     while(COLUNA_ATUAL != 0):
         POSICAO_ATUAL -= 1
         COLUNA_ATUAL -= 1
 
-    #pega linha com erro
-    while(isQuebraLinha()):
+    # pega linha com erro
+    while(LINHA_ATUAL == linhaAux):
         avancaCaractere()
-        linha += entrada[POSICAO_ATUAL]
-        if(POSICAO_ATUAL == posErro):
-            linha += '(erro aqui?)'
+        if (entrada[POSICAO_ATUAL] != '\n'):
+            linha += entrada[POSICAO_ATUAL]
+        linhaErro += " "
+        if(POSICAO_ATUAL == posErro - 1):
+            linhaErro += "|"
 
-    return linha
+    # print("ERRO({}:{}): {}".format(LINHA_ATUAL, COLUNA_ATUAL, erroLabel))
+    print(linha)
+    print(linhaErro)
 
 
 
