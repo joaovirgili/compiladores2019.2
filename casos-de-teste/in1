@@ -1,12 +1,12 @@
-#@#PROGRAMAINICIO
-#    DEFINAI#NSTRUCAO Trilha COMO
-$    INICIO
-        Mova 3a# Passos
+PROGRAMAINICIO
+    DEFINAINSTRUCAO Trilha COMO
+    INICIO
+        Mova 2 Passos
         Aguarde Ate Robo Pronto
         Vire Para ESQUERDA
         Apagar Lampada
         Vire Para DIREITA
-        Mova 1232131a Passos
+        Mova 3 Passos
         Aguarde Ate Robo Pronto
     FIM
     EXECUCAOINICIO
