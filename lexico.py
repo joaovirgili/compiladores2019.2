@@ -65,21 +65,27 @@ CHAR_ATUAL = ''
 
 PILHA_DE_TOKENS = []
 TABELA_DE_SIMBOLOS = []
-num = []
+numbers = []
+reserved_words = []
 
 
 #################### Empilhando os tokens ######################
 def empilha(id, tipo):
     if(tipo == 'numero'):
-        num.append(id)
-        associacao = {'num' + str(len(num)): id}
+        numbers.append(id)
+        associacao = {'num' + str(len(numbers)): id}
         #adiciona na pilha de tokens
         PILHA_DE_TOKENS.append(associacao)
         #adiciona na tabela de simbolos com informacoes
-        TABELA_DE_SIMBOLOS.append(['num' + str(len(num)), id, LINHA_ATUAL])
-    if(tipo == 'letra'):
+        TABELA_DE_SIMBOLOS.append(['num' + str(len(numbers)), id, LINHA_ATUAL])
+    elif(tipo == 'letra'):
         a = 0
-
+    elif(tipo == 'palavra_reservada'):
+        reserved_words.append(id)
+        associacao = {id}
+        PILHA_DE_TOKENS.append(associacao)
+        TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
+        
 #################### Funções de verificação ####################
 
 
@@ -87,6 +93,10 @@ def empilha(id, tipo):
 def isNumero(char):
     return ord(char) >= 48 and ord(char) <= 57
 
+def isPalavraReservada(char):
+    for palavra_reservada in PALAVRAS_RESERVADAS:
+        if char.lower() in palavra_reservada or char.upper() in palavra_reservada:
+            return palavra_reservada
 
 # Verifica se é letra maiúscula
 def isLetraMaiuscula(char):
@@ -150,6 +160,31 @@ def trataNumero():
 def trataIdentificador():
     # TODO
     a = 0 # Apenas para não ter que comentar o método inteiro
+
+    FRASE_ATUAL = entrada[POSICAO_ATUAL]
+    avancaCaractere()
+
+    while(isLetra(entrada[POSICAO_ATUAL])):
+        FRASE_ATUAL += entrada[POSICAO_ATUAL]
+        if(isUltimoCaractere()):
+            break
+        avancaCaractere()
+        
+
+
+    if (isNumero(entrada[POSICAO_ATUAL])):
+        print("erro em linha: ", LINHA_ATUAL+1)
+        print(printLinhaComErro(POSICAO_ATUAL))
+        quit()
+
+    x = isPalavraReservada(FRASE_ATUAL) if True else False
+    if(x):
+        empilha(x, "palavra_reservada")
+
+   
+
+
+
 
 def trataComentario():
     #avanca linha
