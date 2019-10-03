@@ -96,6 +96,9 @@ def empilha(id, tipo):
 def isNumero(char):
     return ord(char) >= 48 and ord(char) <= 57
 
+def isNumero0(char):
+    return ord(char) == 48
+
 def isPalavraReservada(char):
     for palavra_reservada in PALAVRAS_RESERVADAS:
         if char.lower() == palavra_reservada[1] or char.upper() == palavra_reservada[1]:
@@ -144,13 +147,19 @@ def isCharSeparador():
 
 # Tratamento de token Número
 def trataNumero():
-    FRASE_ATUAL = entrada[POSICAO_ATUAL]
-    avancaCaractere()
-    while(isNumero(entrada[POSICAO_ATUAL])):
-        FRASE_ATUAL += entrada[POSICAO_ATUAL]
-        avancaCaractere()
+    FRASE_ATUAL = ''
+    """while(isNumero0(entrada[POSICAO_ATUAL])):
         if(isUltimoCaractere()):
             break
+        FRASE_ATUAL = entrada[POSICAO_ATUAL]
+        avancaCaractere()"""
+        
+    while(isNumero(entrada[POSICAO_ATUAL])):
+        if(isUltimoCaractere()):
+            break
+        FRASE_ATUAL += entrada[POSICAO_ATUAL]
+        avancaCaractere()
+        
 
     #verificar char apos o numero 
     if(isLetra(entrada[POSICAO_ATUAL])):
@@ -159,6 +168,7 @@ def trataNumero():
 
     #gera erro ou empilha
     elif(isCharSeparador() or isUltimoCaractere()):
+        FRASE_ATUAL += entrada[POSICAO_ATUAL]
         empilha(FRASE_ATUAL, 'numero')
     #comentario-erro
     elif(isCharComentario()):
@@ -175,12 +185,13 @@ def trataIdentificador():
     avancaCaractere()
 
     while(isLetra(entrada[POSICAO_ATUAL]) or isNumero(entrada[POSICAO_ATUAL])):
-        FRASE_ATUAL += entrada[POSICAO_ATUAL]
         if(isUltimoCaractere()):
             break
+        FRASE_ATUAL += entrada[POSICAO_ATUAL]
         avancaCaractere()
 
     if(isCharSeparador() or isUltimoCaractere()):
+        FRASE_ATUAL += entrada[POSICAO_ATUAL]
         x = isPalavraReservada(FRASE_ATUAL) if True else False
         if(x):
             empilha(x, "palavra_reservada")

@@ -1,15 +1,1 @@
-ERRO(1:13): Posição de comentário inválida. # apenas no início da linha
-ASDHAUSDHAUSH#IASDFJAISDJIA
-             |              
-ERRO(2:4): Posição de comentário inválida. # apenas no início da linha
-LLLL#JAISDJAISDJAI
-    |              
-ERRO(3:1): Caractere desconhecido
-#################################################
- |                                                
-ERRO(4:1): Caractere desconhecido
-####################
- |                   
-ERRO(5:1): Caractere desconhecido
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- |                                 
+{'numero1': '00000000000000000000000000000111'}
