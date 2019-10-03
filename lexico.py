@@ -51,10 +51,10 @@ PALAVRAS_RESERVADAS = [
 ]
 
 SEPARADORES = [10, 32, 9]  # 32 = ESPAÇO, 9 = TAB, 10 = QUEBRA DE LINHA
-f = open("casos-de-teste/in3", "r")
+f = open("casos-de-teste/in5", "r")
 entrada = f.read()
 
-saida = open("casos-de-teste/in3.out", "w")
+saida = open("casos-de-teste/in5.out", "w")
 
 INPUT_TAM = entrada.__len__()
 LINHA_ATUAL = 0
@@ -85,7 +85,7 @@ def empilha(id, tipo):
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
     elif(tipo == 'palavra_reservada'):
         reserved_words.append(id)
-        associacao = {id}
+        associacao = id
         PILHA_DE_TOKENS.append(associacao)
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
         
@@ -96,9 +96,12 @@ def empilha(id, tipo):
 def isNumero(char):
     return ord(char) >= 48 and ord(char) <= 57
 
+def isNumero0(char):
+    return ord(char) == 48
+
 def isPalavraReservada(char):
     for palavra_reservada in PALAVRAS_RESERVADAS:
-        if char.lower() in palavra_reservada or char.upper() in palavra_reservada:
+        if char.lower() == palavra_reservada[1] or char.upper() == palavra_reservada[1]:
             return palavra_reservada
 
 # Verifica se é letra maiúscula
@@ -144,11 +147,19 @@ def isCharSeparador():
 
 # Tratamento de token Número
 def trataNumero():
-    FRASE_ATUAL = entrada[POSICAO_ATUAL]
-    avancaCaractere()
+    FRASE_ATUAL = ''
+    """while(isNumero0(entrada[POSICAO_ATUAL])):
+        if(isUltimoCaractere()):
+            break
+        FRASE_ATUAL = entrada[POSICAO_ATUAL]
+        avancaCaractere()"""
+        
     while(isNumero(entrada[POSICAO_ATUAL])):
+        if(isUltimoCaractere()):
+            break
         FRASE_ATUAL += entrada[POSICAO_ATUAL]
         avancaCaractere()
+        
 
     #verificar char apos o numero 
     if(isLetra(entrada[POSICAO_ATUAL])):
@@ -157,6 +168,7 @@ def trataNumero():
 
     #gera erro ou empilha
     elif(isCharSeparador() or isUltimoCaractere()):
+        FRASE_ATUAL += entrada[POSICAO_ATUAL]
         empilha(FRASE_ATUAL, 'numero')
     #comentario-erro
     elif(isCharComentario()):
@@ -173,12 +185,13 @@ def trataIdentificador():
     avancaCaractere()
 
     while(isLetra(entrada[POSICAO_ATUAL]) or isNumero(entrada[POSICAO_ATUAL])):
-        FRASE_ATUAL += entrada[POSICAO_ATUAL]
         if(isUltimoCaractere()):
             break
+        FRASE_ATUAL += entrada[POSICAO_ATUAL]
         avancaCaractere()
 
     if(isCharSeparador() or isUltimoCaractere()):
+        FRASE_ATUAL += entrada[POSICAO_ATUAL]
         x = isPalavraReservada(FRASE_ATUAL) if True else False
         if(x):
             empilha(x, "palavra_reservada")
@@ -199,6 +212,8 @@ def trataComentario():
 
     while(isQuebraLinha() == False):
         avancaCaractere()
+        if(isUltimoCaractere()):
+            break
     
     LINHA_ATUAL += 1
     COLUNA_ATUAL = 0
@@ -289,7 +304,7 @@ while (POSICAO_ATUAL < INPUT_TAM):
 
     avancaCaractere()
 printArquivoSaida()
-# print(PILHA_DE_TOKENS)
+print(PILHA_DE_TOKENS)
 # print(TABELA_DE_SIMBOLOS)
 saida.close()
 f.close()
