@@ -58,7 +58,7 @@ saida = open("casos-de-teste/in1.out", "w")
 
 INPUT_TAM = entrada.__len__()
 LINHA_ATUAL = 0
-COLUNA_ATUAL = 1
+COLUNA_ATUAL = 0
 POSICAO_ATUAL = 0
 CHAR_ATUAL = ''
 
@@ -152,7 +152,7 @@ def trataNumero():
 
     #verificar char apos o numero 
     if(isLetra(entrada[POSICAO_ATUAL])):
-        printLinhaComErro(POSICAO_ATUAL, "Numérico com caractere Letra")
+        printLinhaComErro("Numérico com caractere Letra")
         # quit()
 
     #gera erro ou empilha
@@ -160,9 +160,9 @@ def trataNumero():
         empilha(FRASE_ATUAL, 'numero')
     #comentario-erro
     elif(isCharComentario()):
-        printLinhaComErro(LINHA_ATUAL, "Posição de comentário inválida. # apenas no início da linha")
+        printLinhaComErro("Posição de comentário inválida. # apenas no início da linha")
     else:
-        printLinhaComErro(POSICAO_ATUAL, "Caractere desconhecido")
+        printLinhaComErro("Caractere desconhecido")
         # quit()
     
 
@@ -186,9 +186,9 @@ def trataIdentificador():
             empilha(FRASE_ATUAL, "identificador")
     #comentario-erro
     elif(isCharComentario()):
-        printLinhaComErro(LINHA_ATUAL, "Posição de comentário inválida. # apenas no início da linha")
+        printLinhaComErro("Posição de comentário inválida. # apenas no início da linha")
     else:
-        printLinhaComErro(LINHA_ATUAL, "Caractere desconhecido")
+        printLinhaComErro("Caractere desconhecido")
         # quit() 
 
 
@@ -206,12 +206,23 @@ def trataComentario():
     COLUNA_ATUAL = 0
     POSICAO_ATUAL +=1
 
+def trataSeparador():
+    #avanca linha
+    global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL
 
-def printLinhaComErro(posErro, erroLabel):
+    while(isCharSeparador()):
+        avancaCaractere()
+    
+    LINHA_ATUAL += 1
+    COLUNA_ATUAL = 0
+    POSICAO_ATUAL +=1
+
+
+def printLinhaComErro(erroLabel):
     global LINHA_ATUAL, COLUNA_ATUAL, POSICAO_ATUAL, FLAG_ERRO
     FLAG_ERRO = True
 
-    colunaErro = 0
+    colunaErro = COLUNA_ATUAL
 
     linhaAux = LINHA_ATUAL
     linha = ''
@@ -224,18 +235,13 @@ def printLinhaComErro(posErro, erroLabel):
 
     # pega linha com erro
     while(LINHA_ATUAL == linhaAux):
-        avancaCaractere()
         if (entrada[POSICAO_ATUAL] != '\n'):
             linha += entrada[POSICAO_ATUAL]
-        if(POSICAO_ATUAL == posErro):
+        if(COLUNA_ATUAL == colunaErro):
             linhaErro += "|"
-            colunaErro = COLUNA_ATUAL
         else: 
             linhaErro += " "
-
-    # print("ERRO({}:{}): {}".format(LINHA_ATUAL, colunaErro, erroLabel))
-    # print(linha)
-    # print(linhaErro)
+        avancaCaractere()
 
     saida.writelines("ERRO({}:{}): {}".format(LINHA_ATUAL, colunaErro, erroLabel) + "\n") 
     saida.writelines(linha + "\n")
@@ -276,6 +282,12 @@ while (POSICAO_ATUAL < INPUT_TAM):
     elif(isComentario(CHAR_ATUAL)):
         trataComentario()
         continue
+
+    elif(isCharSeparador()):
+        a = 2 #faça nada
+        
+    else:
+        printLinhaComErro("Caractere desconhecido")
 
     avancaCaractere()
 printArquivoSaida()
