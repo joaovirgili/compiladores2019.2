@@ -85,7 +85,7 @@ def empilha(id, tipo):
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
     elif(tipo == 'palavra_reservada'):
         reserved_words.append(id)
-        associacao = {id}
+        associacao = id
         PILHA_DE_TOKENS.append(associacao)
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
         
@@ -98,7 +98,7 @@ def isNumero(char):
 
 def isPalavraReservada(char):
     for palavra_reservada in PALAVRAS_RESERVADAS:
-        if char.lower() in palavra_reservada or char.upper() in palavra_reservada:
+        if char.lower() == palavra_reservada[1] or char.upper() == palavra_reservada[1]:
             return palavra_reservada
 
 # Verifica se é letra maiúscula
@@ -199,6 +199,8 @@ def trataComentario():
 
     while(isQuebraLinha() == False):
         avancaCaractere()
+        if(isUltimoCaractere()):
+            break
     
     LINHA_ATUAL += 1
     COLUNA_ATUAL = 0

@@ -1,6 +1,22 @@
-ERRO(2:0): Posição de comentário inválida. # apenas no início da linha
-   DEFINAI#NSTRUCAO Trilha COMO 
-                                 
-ERRO(4:0): Posição de comentário inválida. # apenas no início da linha
-       Mova 3# Passos 
-                       
+{'identificador1': 'asdAsdasdadjhjh12312768asd'}
+{'identificador2': 'adas'}
+{'numero1': '23'}
+{'numero2': '123123'}
+{'identificador3': 'asdas123123'}
+('programa', 'programainicio')
+('instrucao', 'vire')
+('sentido', 'esquerda')
+('para', 'para')
+('bloco', 'fim')
+('sentido', 'direita')
+('lampada', 'lampada')
+('instrucao', 'mova')
+('instrucao', 'apagar')
+{'numero3': '02'}
+('condicional', 'se')
+('instrucao', 'mova')
+('bloco', 'inicio')
+{'identificador4': 'defina'}
+{'numero4': '1321509'}
+{'identificador5': 'instrucao'}
+('laco', 'enquanto')
