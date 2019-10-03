@@ -51,10 +51,10 @@ PALAVRAS_RESERVADAS = [
 ]
 
 SEPARADORES = [10, 32, 9]  # 32 = ESPAÇO, 9 = TAB, 10 = QUEBRA DE LINHA
-f = open("casos-de-teste/in3", "r")
+f = open("casos-de-teste/in5", "r")
 entrada = f.read()
 
-saida = open("casos-de-teste/in3.out", "w")
+saida = open("casos-de-teste/in5.out", "w")
 
 INPUT_TAM = entrada.__len__()
 LINHA_ATUAL = 0
@@ -149,6 +149,8 @@ def trataNumero():
     while(isNumero(entrada[POSICAO_ATUAL])):
         FRASE_ATUAL += entrada[POSICAO_ATUAL]
         avancaCaractere()
+        if(isUltimoCaractere()):
+            break
 
     #verificar char apos o numero 
     if(isLetra(entrada[POSICAO_ATUAL])):
@@ -291,7 +293,7 @@ while (POSICAO_ATUAL < INPUT_TAM):
 
     avancaCaractere()
 printArquivoSaida()
-# print(PILHA_DE_TOKENS)
+print(PILHA_DE_TOKENS)
 # print(TABELA_DE_SIMBOLOS)
 saida.close()
 f.close()
