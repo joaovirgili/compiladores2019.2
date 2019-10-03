@@ -20,6 +20,9 @@
 
 - Observe que o arquivo com o nome escolhido será gerado na pasta "casos-de-teste". Cuidado: caso o arquivo já exista, será gerado outro por cima.
 
+# Casos de teste
+
+- O caso de teste possui uma entrada e por uma saída com nome igual porém com o sufixo ".out". Ex.: in1(entrada) e in1.out(saída)
 
 # Equipe
 
