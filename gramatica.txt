@@ -1,5 +1,3 @@
-START -> PROG
-
 PROG -> programainicio DECL execucaoinicio COMANDO fimexecucao fimprograma
 
 DECL -> definainstrucao ID como COMANDO DECL
@@ -36,19 +34,19 @@ INSTR -> apague lampada
 INSTR -> acenda lampada
 INSTR -> aguarde ate COND
 
-COND -> robo_pronto
-COND -> robo_ocupado
-COND -> robo_parado
-COND -> robo_movimentando
-COND -> frente_robo_bloqueada
-COND -> direita_robo_bloqueada
-COND -> esquerda_robo_bloqueada
-COND -> lampada_acesa_a_frente
-COND -> lampada_apagada_a_frente
-COND -> lampada_acesa_a_esquerda
-COND -> lampada_apagada_a_esquerda
-COND -> lampada_acesa_a_direita
-COND -> lampada_apagada_a_direita
+COND -> robo pronto
+COND -> robo ocupado
+COND -> robo parado
+COND -> robo movimentando
+COND -> frente robobloqueada
+COND -> direita robo bloqueada
+COND -> esquerda robo bloqueada
+COND -> lampada acesa a frente
+COND -> lampada apagada a frente
+COND -> lampada acesa a esquerda
+COND -> lampada apagada a esquerda
+COND -> lampada acesa a direita
+COND -> lampada apagada a direita
 
 ID -> id
 
