@@ -2,7 +2,6 @@ START -> PROG
 
 PROG -> programainicio DECL execucaoinicio COMANDO fimexecucao fimprograma
 
-DECL -> definainstrucao ID como COMANDO 
 DECL -> definainstrucao ID como COMANDO DECL
 DECL -> ''
 
