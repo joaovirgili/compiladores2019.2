@@ -1,0 +1,58 @@
+START -> PROG
+
+PROG -> programainicio DECL execucaoinicio COMANDO fimexecucao fimprograma
+
+DECL -> definainstrucao ID como COMANDO 
+DECL -> definainstrucao ID como COMANDO DECL
+DECL -> ''
+
+COMANDO -> BLOCO
+COMANDO -> ITER
+COMANDO -> LACO
+COMANDO -> COND
+COMANDO -> INSTR
+
+COMANDOS -> COMANDO COMANDOS
+COMANDOS -> ''
+
+BLOCO -> inicio COMANDOS fim
+
+ITER -> repita NUM vezes COMANDO fimrepita
+
+LACO -> enquanto COND faca COMANDO fimpara
+
+IFELSE -> IF
+IFELSE -> IF ELSE
+IF -> se COND entao COMANDO fimse
+ELSE -> senao COMANDO fimsenao
+
+
+INSTR -> mova NUM
+INSTR -> mova NUM passos
+INSTR -> view para SENTIDO
+INSTR -> ID
+INSTR -> pare
+INSTR -> finalize
+INSTR -> apague lampada
+INSTR -> acenda lampada
+INSTR -> aguarde ate COND
+
+COND -> robo_pronto
+COND -> robo_ocupado
+COND -> robo_parado
+COND -> robo_movimentando
+COND -> frente_robo_bloqueada
+COND -> direita_robo_bloqueada
+COND -> esquerda_robo_bloqueada
+COND -> lampada_acesa_a_frente
+COND -> lampada_apagada_a_frente
+COND -> lampada_acesa_a_esquerda
+COND -> lampada_apagada_a_esquerda
+COND -> lampada_acesa_a_direita
+COND -> lampada_apagada_a_direita
+
+ID -> id
+
+NUM -> num
+SENTIDO -> esquerda
+SENTIDO -> direita
