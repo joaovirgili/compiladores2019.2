@@ -26,7 +26,7 @@ ELSE -> senao COMANDO fimsenao
 
 INSTR -> mova NUM
 INSTR -> mova NUM passos
-INSTR -> view para SENTIDO
+INSTR -> vire para SENTIDO
 INSTR -> ID
 INSTR -> pare
 INSTR -> finalize
