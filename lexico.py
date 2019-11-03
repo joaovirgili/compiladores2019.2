@@ -75,12 +75,12 @@ FLAG_ERRO = False
 def empilha(id, tipo):
     if(tipo == 'numero'):
         numbers.append(id)
-        associacao = {tipo + str(len(numbers)): id}
+        associacao = {tipo: id}
         PILHA_DE_TOKENS.append(associacao)
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
     elif(tipo == 'identificador'):
         identifiers.append(id)
-        associacao = {tipo+str(len(identifiers)): id}
+        associacao = {tipo: id}
         PILHA_DE_TOKENS.append(associacao)
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
     elif(tipo == 'palavra_reservada'):
