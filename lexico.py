@@ -51,10 +51,10 @@ PALAVRAS_RESERVADAS = [
 ]
 
 SEPARADORES = [10, 32, 9]  # 32 = ESPAÇO, 9 = TAB, 10 = QUEBRA DE LINHA
-f = open("casos-de-teste/in5", "r")
+f = open("casos-de-teste/in1", "r")
 entrada = f.read()
 
-saida = open("casos-de-teste/in5.out", "w")
+saida = open("casos-de-teste/in1.out", "w")
 
 INPUT_TAM = entrada.__len__()
 LINHA_ATUAL = 0
@@ -85,7 +85,7 @@ def empilha(id, tipo):
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
     elif(tipo == 'palavra_reservada'):
         reserved_words.append(id)
-        associacao = id
+        associacao = {id[1]: id[1]}
         PILHA_DE_TOKENS.append(associacao)
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
         
@@ -168,7 +168,7 @@ def trataNumero():
 
     #gera erro ou empilha
     elif(isCharSeparador() or isUltimoCaractere()):
-        FRASE_ATUAL += entrada[POSICAO_ATUAL]
+        #FRASE_ATUAL += entrada[POSICAO_ATUAL]
         empilha(FRASE_ATUAL, 'numero')
     #comentario-erro
     elif(isCharComentario()):
@@ -191,7 +191,7 @@ def trataIdentificador():
         avancaCaractere()
 
     if(isCharSeparador() or isUltimoCaractere()):
-        FRASE_ATUAL += entrada[POSICAO_ATUAL]
+        #FRASE_ATUAL += entrada[POSICAO_ATUAL]
         x = isPalavraReservada(FRASE_ATUAL) if True else False
         if(x):
             empilha(x, "palavra_reservada")
