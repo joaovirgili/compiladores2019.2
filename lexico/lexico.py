@@ -51,10 +51,10 @@ PALAVRAS_RESERVADAS = [
 ]
 
 SEPARADORES = [10, 32, 9]  # 32 = ESPAÇO, 9 = TAB, 10 = QUEBRA DE LINHA
-f = open("casos-de-teste/in1", "r")
+f = open("lexico/casos-de-teste/in1", "r")
 entrada = f.read()
 
-saida = open("casos-de-teste/in1.out", "w")
+saida = open("lexico/casos-de-teste/in1.out", "w")
 
 INPUT_TAM = entrada.__len__()
 LINHA_ATUAL = 0

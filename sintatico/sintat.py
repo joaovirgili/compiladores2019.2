@@ -1,9 +1,9 @@
 import json
 
-f = open('rl_tableFINAL.json', 'r')
+f = open('sintatico/rl_tableFINAL.json', 'r')
 tabelaLR = json.loads(f.read())
 
-f = open('gramatica.json', 'r')
+f = open('sintatico/gramatica.json', 'r')
 gramatica = json.loads(f.read())
 
 entradaLexico = [
@@ -43,15 +43,16 @@ entradaLexico = [
     {'fimprograma': 'fimprograma'}
 ]
 
+# entradaLexico = [
+#     {'programainicio': 'programainicio'}
+# ]
+
 def trataShift(action, token):
     novoEstado = int(action[1:])
     pilha.append(token)
     pilha.append(novoEstado)
 
 def trataReduce(action, token):
-
-    # pilha.pop()
-    # pilha.pop()
     linhaInstrucao = int(action[1:]) 
 
     instrucao = gramatica[linhaInstrucao]["token"]
@@ -65,18 +66,18 @@ def trataReduce(action, token):
             pilha.pop()
     
     ultimoEstado = pilha[getTopoIdx()]
-    # while len(pilha) > 0 and estado == "":
-    #     pilha.pop()
-    #     pilha.pop()
-    #     ultimoEstado = pilha[getTopoIdx()]
-    #     estado = tabelaLR[ultimoEstado][instrucao]
+    ultimoEstadoInstrucao = tabelaLR[ultimoEstado][instrucao]
 
-    estado = int(tabelaLR[ultimoEstado][instrucao])
+    if ultimoEstadoInstrucao == "":
+        print("Erro sintatico a")
+        quit()
+
+
+    estado = int(ultimoEstadoInstrucao)
     pilha.append(instrucao)
     pilha.append(estado)
 
     newAction = tabelaLR[estado][token]
-    print((newAction, token))
 
     if 's' in newAction:
         trataShift(newAction, token)
@@ -97,10 +98,14 @@ for token in entradaLexico:
 
     if 's' in action:
         trataShift(action, token)
-    else:
+    elif 'r' in action:
         trataReduce(action, token)
+    else:
+        print(f'Erro sintático: "{token}" não esperado.')
+        quit()
 
 
 
+print("OK")
 quit()
 
