@@ -6,7 +6,7 @@ DECL -> ''
 COMANDO -> BLOCO
 COMANDO -> ITER
 COMANDO -> LACO
-COMANDO -> COND
+COMANDO -> IFELSE
 COMANDO -> INSTR
 
 COMANDOS -> COMANDO COMANDOS
@@ -38,7 +38,7 @@ COND -> robo pronto
 COND -> robo ocupado
 COND -> robo parado
 COND -> robo movimentando
-COND -> frente robobloqueada
+COND -> frente robo bloqueada
 COND -> direita robo bloqueada
 COND -> esquerda robo bloqueada
 COND -> lampada acesa a frente
@@ -48,8 +48,8 @@ COND -> lampada apagada a esquerda
 COND -> lampada acesa a direita
 COND -> lampada apagada a direita
 
-ID -> id
+ID -> identificador
 
-NUM -> num
+NUM -> numero
 SENTIDO -> esquerda
 SENTIDO -> direita
