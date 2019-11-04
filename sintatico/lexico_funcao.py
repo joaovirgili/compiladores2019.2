@@ -13,7 +13,7 @@ PALAVRAS_RESERVADAS = [
     ("vezes", "vezes"),
     ("fimrepita", "fimrepita"),
     ("enquanto", "enquanto"),
-    ("lfacaaco", "faca"),
+    ("faca", "faca"),
     ("fimpara", "fimpara"),
     ("se", "se"),
     ("entao", "entao"),
@@ -21,7 +21,6 @@ PALAVRAS_RESERVADAS = [
     ("senao", "senao"),
     ("fimsenao", "fimsenao"),
     ("mova", "mova"),
-    ("passos", "passos"),
     ("vire", "vire"),
     ("pare", "pare"),
     ("finalize", "finalize"),
@@ -47,6 +46,7 @@ PALAVRAS_RESERVADAS = [
     ("pronto", "pronto"),
     ("acesa", "acesa"),
     ("para", "para"),
+]("para", "para"),
 ]
 
 SEPARADORES = [10, 32, 9]  # 32 = ESPAÇO, 9 = TAB, 10 = QUEBRA DE LINHA
