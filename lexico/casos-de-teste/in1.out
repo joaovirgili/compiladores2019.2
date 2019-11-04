@@ -13,7 +13,7 @@
 {'vire': 'vire'}
 {'para': 'para'}
 {'esquerda': 'esquerda'}
-{'apagar': 'apagar'}
+{'apague': 'apague'}
 {'lampada': 'lampada'}
 {'vire': 'vire'}
 {'para': 'para'}
@@ -31,8 +31,6 @@
 {'numero': '3'}
 {'vezes': 'vezes'}
 {'identificador': 'Trilha'}
-{'vire': 'vire'}
-{'para': 'para'}
-{'direita': 'direita'}
+{'fimrepita': 'fimrepita'}
 {'fimexecucao': 'fimexecucao'}
 {'fimprograma': 'fimprograma'}
