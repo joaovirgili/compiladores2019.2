@@ -16,9 +16,7 @@
 - Todos os arquivos referenes ao analisador sintático estão na pasta "sintatico".
 - Código fonte do analisador sintático: arquivo "sintatico/sintat.py"
 - A gramática criada foi exportada para o formato JSON para facilitar a leitura da mesma no código do analisador sintático.
-
-
-
+- O analisador léxico foi inserido na pasta do sintático para ser importada como uma função. No início do analisador sintático, a função léxico é chamada para obtem a tabela de símbolos e assim efetuar a análise sintática.
 
 
 # Execução
@@ -27,11 +25,12 @@
 
 ## Léxico
 - Após clonar o repositório, edite o nome do arquivo de entrada e o nome do arquivo de saída que será gerado nas linhas 54 e 57, respectivamente.
-- Basta executar "python3 lexico.py" na pasta raíz.
+- Basta executar "python3 lexico/lexico.py".
 - Observe que o arquivo com o nome escolhido será gerado na pasta "casos-de-teste". Cuidado: caso o arquivo já exista, será gerado outro por cima.
 
 ## Sintático
-- TODO
+- Após clonar o repositório, edite o nome do arquivo de entrada na linha 53 do arquivo sintatico/lexico_funcao.py para o arquivo de entrada de sua escolha. Por default, o arquivo "lexico/casos-de-teste/in1" é o selecionado.
+- Basta executar o comando "python3 sintatio/sintat.py".
 
 # Casos de teste
 
