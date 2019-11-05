@@ -1,12 +1,24 @@
 import json
+import sys
+sys.path.insert(1, '../lexico')
 import lexico_funcao
+
+import tabela_de_simbolos as ts
+
+symbol_table = []
+nome_table = []
+nome_table.append(ts.TabelaDeSimbolos())
+symbol_table.append(nome_table[len(symbol_table)])
+
+#table.add(x,y)
+#table.search(x)
 
 entradaLexico = lexico_funcao.lexico()
 
-f = open('sintatico/rl_tableFINAL.json', 'r')
+f = open('rl_tableFINAL.json', 'r')
 tabelaLR = json.loads(f.read())
 
-f = open('sintatico/gramatica.json', 'r')
+f = open('gramatica.json', 'r')
 gramatica = json.loads(f.read())
 
 # entradaLexico = [
@@ -51,9 +63,36 @@ gramatica = json.loads(f.read())
 # ]
 
 def trataShift(action, token, tokenIdx, tokenData):
+    print(action, token, tokenIdx, tokenData, int(action[1:]))
     novoEstado = int(action[1:])
     pilha.append(token)
-    pilha.append(novoEstado)
+    pilha.append(novoEstado) 
+
+    count = 0
+    idx_token = 0
+    existe_token = True
+    for t in symbol_table:
+        if t.search(token):
+            count = count + 1
+            continue
+        else:
+            idx_token = count
+            existe_token = False
+            break
+
+    if existe_token:
+        #nome_table[len(symbol_table)] = ts.TabelaDeSimbolos()
+        nome_table.append(ts.TabelaDeSimbolos())
+        nome_table[len(symbol_table)].add(token, tokenData)
+        symbol_table.append(nome_table[len(symbol_table)])
+    else:
+        symbol_table[idx_token].add(token,tokenData)
+
+
+    for t in symbol_table:
+        print('Tabela: ', count)
+        count = count + 1
+        print(t.__dict__)
 
 def trataReduce(action, token, tokenIdx, tokenData):
     linhaInstrucao = int(action[1:]) 
