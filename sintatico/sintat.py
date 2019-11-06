@@ -1,25 +1,72 @@
 import json
 import sys
-sys.path.insert(1, '../lexico')
 import lexico_funcao
 
 import tabela_de_simbolos as ts
+import no
 
 symbol_table = []
 nome_table = []
+arvore = []
 nome_table.append(ts.TabelaDeSimbolos())
 symbol_table.append(nome_table[len(symbol_table)])
+
+class Node:
+    def __init__(self, value=None, children=None):
+        if children is None:
+            children = []
+        self.value, self.children = value, children
 
 #table.add(x,y)
 #table.search(x)
 
 entradaLexico = lexico_funcao.lexico()
 
-f = open('rl_tableFINAL.json', 'r')
+f = open('sintatico/rl_tableFINAL.json', 'r')
 tabelaLR = json.loads(f.read())
 
-f = open('gramatica.json', 'r')
+f = open('sintatico/gramatica.json', 'r')
 gramatica = json.loads(f.read())
+
+def printaArvore(arvore):
+    root = Node("PROG")
+    root.children = transformaFilhos(arvore)
+
+    pprint_tree(root)
+
+def pprint_tree(node, file=None, _prefix="", _last=True):
+    print(_prefix, "`- " if _last else "|- ", node.value, sep="", file=file)
+    _prefix += "   " if _last else "|  "
+    child_count = len(node.children)
+    for i, child in enumerate(node.children):
+        _last = i == (child_count - 1)
+        pprint_tree(child, file, _prefix, _last)
+
+def transformaFilhos(filhos):
+
+    nodeFilhos = []
+
+    for f in filhos:
+        no = Node(f.chave)
+        if not hasattr(f, 'filhos') or len(f.filhos) == 0:
+            no.children = []    
+        else: 
+            no.children = transformaFilhos(f.filhos)
+        nodeFilhos.append(no)
+
+    return nodeFilhos
+
+def montaArvore(arvore):
+
+    linha = ""
+
+    for no in arvore:
+        linha += no.chave + " | "
+        if hasattr(no, 'filhos') and len(no.filhos) > 0:
+            linha += montaArvore(no.filhos)
+
+    return linha + "\n"
+    
 
 # entradaLexico = [
 #     {'programainicio': 'programainicio'},
@@ -63,7 +110,11 @@ gramatica = json.loads(f.read())
 # ]
 
 def trataShift(action, token, tokenIdx, tokenData):
-    print(action, token, tokenIdx, tokenData, int(action[1:]))
+    # print(action, token, tokenIdx, tokenData, int(action[1:]))
+
+    global arvore
+    arvore.append(no.No(token))
+
     novoEstado = int(action[1:])
     pilha.append(token)
     pilha.append(novoEstado) 
@@ -89,10 +140,10 @@ def trataShift(action, token, tokenIdx, tokenData):
         symbol_table[idx_token].add(token,tokenData)
 
 
-    for t in symbol_table:
-        print('Tabela: ', count)
-        count = count + 1
-        print(t.__dict__)
+    # for t in symbol_table:
+        # print('Tabela: ', count)
+        # count = count + 1
+        # print(t.__dict__)
 
 def trataReduce(action, token, tokenIdx, tokenData):
     linhaInstrucao = int(action[1:]) 
@@ -100,12 +151,25 @@ def trataReduce(action, token, tokenIdx, tokenData):
     instrucao = gramatica[linhaInstrucao]["token"]
     value = gramatica[linhaInstrucao]["value"]
 
+    global arvore
+
+    novoNo = no.No(instrucao)
     if value != "":
+
         num_consume = len(value.split(" "))
 
+        filhos = []
+
         for i in range(num_consume):
+            if len(arvore) == 0:
+                print("Erro arvore vazia")
+            else:
+                filhos.append(arvore.pop())
             pilha.pop()
             pilha.pop()
+
+        novoNo.filhos = list(reversed(filhos))
+    arvore.append(novoNo)
     
     ultimoEstado = pilha[getTopoIdx()]
     ultimoEstadoInstrucao = tabelaLR[ultimoEstado][instrucao]
@@ -169,8 +233,11 @@ for tokenIdx in range(len(entradaLexico)):
         # print(f'Erro sintático (linha {linha}): "{token}" não esperado {ultimoTokenError}')
         # quit()
 
+# outputArvore = montaArvore(arvore)
+# print(outputArvore)
 
 
+printaArvore(arvore)
 print("OK")
 quit()
 
