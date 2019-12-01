@@ -1,8 +1,11 @@
 import json
 import sys
 import re
+import os
 
-sys.path.insert(1, '../lexico/')
+#print(os.path.dirname(os.path.abspath(__file__))+'../lexico/')
+#quit()
+sys.path.append(os.path.dirname(os.path.abspath(__file__))+'/../lexico/')
 import lexico_funcao
 
 import tabela_de_simbolos as ts
@@ -27,10 +30,10 @@ class Node:
 
 entradaLexico = lexico_funcao.lexico()
 
-f = open('rl_tableFINAL.json', 'r')
+f = open(os.path.dirname(os.path.abspath(__file__))+'/rl_tableFINAL.json', 'r')
 tabelaLR = json.loads(f.read())
 
-f = open('gramatica.json', 'r')
+f = open(os.path.dirname(os.path.abspath(__file__))+'/gramatica.json', 'r')
 gramatica = json.loads(f.read())
 
 def percorreArvoreSemantica(node, file=None, _prefix="", _last=True):

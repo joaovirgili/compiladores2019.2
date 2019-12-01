@@ -1,3 +1,4 @@
+import os
 #################### Inicialização ####################
 
 PALAVRAS_RESERVADAS = [
