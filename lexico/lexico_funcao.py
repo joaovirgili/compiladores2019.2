@@ -83,17 +83,17 @@ def empilha(id, tipo):
         numbers.append(id)
         associacao = {tipo: id, "linha": LINHA_ATUAL}
         PILHA_DE_TOKENS.append(associacao)
-        TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
+        TABELA_DE_SIMBOLOS.append([associacao])
     elif(tipo == 'identificador'):
         identifiers.append(id)
         associacao = {tipo: id, "linha": LINHA_ATUAL}
         PILHA_DE_TOKENS.append(associacao)
-        TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
+        TABELA_DE_SIMBOLOS.append([associacao])
     elif(tipo == 'palavra_reservada'):
         reserved_words.append(id)
         associacao = {id[1]: id[1], "linha": LINHA_ATUAL}
         PILHA_DE_TOKENS.append(associacao)
-        TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
+        TABELA_DE_SIMBOLOS.append([associacao])
         
 #################### Funções de verificação ####################
 
@@ -313,7 +313,7 @@ def lexico() -> list:
         avancaCaractere()
     # printArquivoSaida()
     # print(PILHA_DE_TOKENS)
-    # print(TABELA_DE_SIMBOLOS)
+    print(TABELA_DE_SIMBOLOS)
     saida.close()
     f.close()
     return PILHA_DE_TOKENS
