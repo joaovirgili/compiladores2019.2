@@ -1,3 +1,5 @@
+import os
+
 #################### Inicialização ####################
 
 PALAVRAS_RESERVADAS = [
@@ -46,6 +48,7 @@ PALAVRAS_RESERVADAS = [
     ("pronto", "pronto"),
     ("acesa", "acesa"),
     ("para", "para"),
+    ("para", "para"),
 ]
 
 SEPARADORES = [10, 32, 9]  # 32 = ESPAÇO, 9 = TAB, 10 = QUEBRA DE LINHA
@@ -54,9 +57,10 @@ full_path = os.path.realpath(__file__)
 dir_name = os.path.dirname(full_path)
 
 f = open(dir_name+"/casos-de-teste/in1", "r")
+
 entrada = f.read()
 
-saida = open(dir_name+"lexico/casos-de-teste/in1.out", "w")
+saida = open(dir_name+"/casos-de-teste/in1.out", "w")
 
 INPUT_TAM = entrada.__len__()
 LINHA_ATUAL = 0
@@ -77,17 +81,17 @@ FLAG_ERRO = False
 def empilha(id, tipo):
     if(tipo == 'numero'):
         numbers.append(id)
-        associacao = {tipo: id}
+        associacao = {tipo: id, "linha": LINHA_ATUAL}
         PILHA_DE_TOKENS.append(associacao)
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
     elif(tipo == 'identificador'):
         identifiers.append(id)
-        associacao = {tipo: id}
+        associacao = {tipo: id, "linha": LINHA_ATUAL}
         PILHA_DE_TOKENS.append(associacao)
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
     elif(tipo == 'palavra_reservada'):
         reserved_words.append(id)
-        associacao = {id[1]: id[1]}
+        associacao = {id[1]: id[1], "linha": LINHA_ATUAL}
         PILHA_DE_TOKENS.append(associacao)
         TABELA_DE_SIMBOLOS.append([associacao, LINHA_ATUAL])
         
@@ -283,30 +287,31 @@ def avancaCaractere():
         COLUNA_ATUAL += 1
     POSICAO_ATUAL += 1
 
+def lexico() -> list:
+    while (POSICAO_ATUAL < INPUT_TAM):
+        CHAR_ATUAL = entrada[POSICAO_ATUAL]
         
+        if (isNumero(CHAR_ATUAL)):
+            trataNumero()
 
-while (POSICAO_ATUAL < INPUT_TAM):
-    CHAR_ATUAL = entrada[POSICAO_ATUAL]
-      
-    if (isNumero(CHAR_ATUAL)):
-        trataNumero()
+        elif(isLetra(CHAR_ATUAL)):
+            trataIdentificador()
 
-    elif(isLetra(CHAR_ATUAL)):
-        trataIdentificador()
+        elif(isComentario(CHAR_ATUAL)):
+            trataComentario()
+            continue
 
-    elif(isComentario(CHAR_ATUAL)):
-        trataComentario()
-        continue
+        elif(isCharSeparador()):
+            a = 2 #faça nada
+            
+        else:
+            printLinhaComErro("Caractere desconhecido")
 
-    elif(isCharSeparador()):
-        a = 2 #faça nada
-        
-    else:
-        printLinhaComErro("Caractere desconhecido")
-
-    avancaCaractere()
-printArquivoSaida()
-print(PILHA_DE_TOKENS)
-# print(TABELA_DE_SIMBOLOS)
-saida.close()
-f.close()
+        avancaCaractere()
+    # printArquivoSaida()
+    # print(PILHA_DE_TOKENS)
+    # print(TABELA_DE_SIMBOLOS)
+    saida.close()
+    f.close()
+    return PILHA_DE_TOKENS
+    # quit()
