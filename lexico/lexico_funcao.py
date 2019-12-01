@@ -126,7 +126,7 @@ def isLetra(char):
 
 # Verifica se o caractere atual é # (comentario) e se é inicio de frase
 def isComentario(char):
-    return (char == '#' and COLUNA_ATUAL == 0)
+    return (char == '#')
 
 def isCharComentario():
     return entrada[POSICAO_ATUAL] == '#'
@@ -298,8 +298,11 @@ def lexico() -> list:
             trataIdentificador()
 
         elif(isComentario(CHAR_ATUAL)):
-            trataComentario()
-            continue
+            if(COLUNA_ATUAL == 0):
+                trataComentario()
+                continue
+            else:
+                printLinhaComErro("Comentário ('#') somente em início de linha")
 
         elif(isCharSeparador()):
             a = 2 #faça nada
