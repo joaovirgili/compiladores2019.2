@@ -49,10 +49,14 @@ PALAVRAS_RESERVADAS = [
 ]
 
 SEPARADORES = [10, 32, 9]  # 32 = ESPAÇO, 9 = TAB, 10 = QUEBRA DE LINHA
-f = open("lexico/casos-de-teste/in1", "r")
+
+full_path = os.path.realpath(__file__)
+dir_name = os.path.dirname(full_path)
+
+f = open(dir_name+"/casos-de-teste/in1", "r")
 entrada = f.read()
 
-saida = open("lexico/casos-de-teste/in1.out", "w")
+saida = open(dir_name+"lexico/casos-de-teste/in1.out", "w")
 
 INPUT_TAM = entrada.__len__()
 LINHA_ATUAL = 0
