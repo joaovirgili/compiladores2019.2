@@ -29,6 +29,8 @@ class Node:
 #table.search(x)
 
 entradaLexico = lexico_funcao.lexico()
+print(entradaLexico)
+
 
 f = open(os.path.dirname(os.path.abspath(__file__))+'/rl_tableFINAL.json', 'r')
 tabelaLR = json.loads(f.read())
@@ -265,7 +267,7 @@ for tokenIdx in range(len(entradaLexico)):
 #    print(x.__dict__)
 
 
-#Analise Semantica
+# Analise Semantica
 semantica_string = ''
 for i, word in enumerate(arvore_semantica):
     semantica_string = semantica_string + word
@@ -273,24 +275,25 @@ for i, word in enumerate(arvore_semantica):
         semantica_string = semantica_string + ' '
 
 
-#regra semantica do vire para em sentidos opostos
+# regra semantica do vire para em sentidos opostos
 x = re.search("vire para esquerda vire para direita", semantica_string)
 x2 = re.search("vire para direita vire para esquerda", semantica_string)
 
-#regra semantica para 2 ou mais declaracoes com mesmo nome
+# regra semantica para 2 ou mais declaracoes com mesmo nome
 y = re.findall("definainstrucao [a-zA-Z]+", semantica_string)
 
 mySet = set(y)
-if len(mySet) == len(y):
-    print("erro semantico: ha duas declaracoes de instrucoes com mesmo nome")
+if len(mySet) != len(y):
+    print("erro semantico: ha duas declaracoes de instrucoes com mesmo nome", mySet)
 
 if x or x2:
     print('erro semantico: ha ocorrencia de vire para em sentidos opostos seguidas')
-#print(semantica_string)
+# print(semantica_string)
 
 
-#prints das arvores
+# prints das arvores
 printaArvore(arvore)
+
 print("OK")
 quit()
 
