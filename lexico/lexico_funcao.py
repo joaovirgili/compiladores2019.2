@@ -313,7 +313,7 @@ def lexico() -> list:
         avancaCaractere()
     # printArquivoSaida()
     # print(PILHA_DE_TOKENS)
-    print(TABELA_DE_SIMBOLOS)
+    # print(TABELA_DE_SIMBOLOS)
     saida.close()
     f.close()
     return PILHA_DE_TOKENS
