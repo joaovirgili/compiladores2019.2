@@ -5,7 +5,7 @@
 
 ## Léxico
 - Todos os arquivos referente ao analisador léxico estão na pasta "lexico".
-- Código fonte do analisador léxico: arquivo "lexico.py"
+- Código fonte do analisador léxico: arquivo "lexico_funcao.py"
 - Casos de teste estão na pasta "casos-de-teste"
 - Imagens de análise de codigo correta e errada estão na pasta "imagens".
 - Expressões regulares no arquivo "expressoes_regulares.txt"
@@ -14,23 +14,22 @@
 
 ## Sintático
 - Todos os arquivos referenes ao analisador sintático estão na pasta "sintatico".
-- Código fonte do analisador sintático: arquivo "sintatico/sintat.py"
+- Código fonte do analisador sintático: arquivo "sintat.py"
+- A gramática criado está no arquivo "gramatica.json"
 - A gramática criada foi exportada para o formato JSON para facilitar a leitura da mesma no código do analisador sintático.
-- O analisador léxico foi inserido na pasta do sintático para ser importada como uma função. No início do analisador sintático, a função léxico é chamada para obtem a tabela de símbolos e assim efetuar a análise sintática.
+- No início do analisador sintático, a função léxico (em "lexico/lexico_funcao.py") é chamada para obter a tabela de símbolos e assim efetuar a análise sintática.
+
+## Semantico
+- Semantico foi implementado junto com o sintatico.
 
 
 # Execução
-
-- Certifique-se de ter o Python3 instaldo.
-
-## Léxico
-- Após clonar o repositório, edite o nome do arquivo de entrada e o nome do arquivo de saída que será gerado nas linhas 54 e 57, respectivamente.
-- Basta executar "python3 lexico/lexico.py".
-- Observe que o arquivo com o nome escolhido será gerado na pasta "casos-de-teste". Cuidado: caso o arquivo já exista, será gerado outro por cima.
-
-## Sintático
+- O arquivo principal é "sintatico/sintat.py"
+- Certifique-se de ter o Python3 instalado.
 - Após clonar o repositório, edite o nome do arquivo de entrada na linha 53 do arquivo sintatico/lexico_funcao.py para o arquivo de entrada de sua escolha. Por default, o arquivo "lexico/casos-de-teste/in1" é o selecionado.
+- A saída do lexico é a geração do arquivo de saída em "lexico/casos-de-teste". Altere o nome do arquivo em "lexico/
 - Basta executar o comando "python3 sintatio/sintat.py".
+
 
 # Casos de teste
 
