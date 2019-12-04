@@ -1,5 +1,5 @@
 PROGRAMAINICIO
-    DEFINAINSTRUCAO # Trilha COMO
+    DEFINAINSTRUCAO Trilha COMO
     INICIO
         Mova 2 Passos
         Aguarde Ate Robo Pronto

@@ -29,8 +29,6 @@ class Node:
 #table.search(x)
 
 entradaLexico = lexico_funcao.lexico()
-print(entradaLexico)
-
 
 f = open(os.path.dirname(os.path.abspath(__file__))+'/rl_tableFINAL.json', 'r')
 tabelaLR = json.loads(f.read())
@@ -52,9 +50,9 @@ def percorreArvoreSemantica(node, file=None, _prefix="", _last=True):
 
 def printaArvore(arvore):
     root = Node("PROG", 'PRODUCAO')
-    print(root.__dict__)
+    #print(root.__dict__)
     root.children = transformaFilhos(arvore)
-    print(root.__dict__)
+    #print(root.__dict__)
     percorreArvoreSemantica(root)
     pprint_tree(root)
 
