@@ -29,6 +29,17 @@ class Node:
 #table.search(x)
 
 entradaLexico = lexico_funcao.lexico()
+
+full_path = os.path.realpath(__file__)
+dir_name = os.path.dirname(full_path)
+
+# verifica se teve erro no lexico, e para o codigo caso tenha
+fout = open(dir_name+"/../lexico/casos-de-teste/"+sys.argv[2], "r")
+saida = fout.read()
+if len(saida) != 0:
+    print(saida)
+    quit()
+
 # print(entradaLexico)
 
 
@@ -288,7 +299,7 @@ if len(mySet) != len(y):
     quit()
 
 if x or x2:
-    print('erro semantico: ha ocorrencia de vire para em sentidos opostos seguidas')
+    print('erro semantico: ha ocorrencia de vire para em sentidos opostos seguidos')
     quit()
 # print(semantica_string)
 

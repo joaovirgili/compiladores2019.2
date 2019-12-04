@@ -1,5 +1,5 @@
 import os
-
+import sys
 #################### Inicialização ####################
 
 PALAVRAS_RESERVADAS = [
@@ -56,11 +56,11 @@ SEPARADORES = [10, 32, 9]  # 32 = ESPAÇO, 9 = TAB, 10 = QUEBRA DE LINHA
 full_path = os.path.realpath(__file__)
 dir_name = os.path.dirname(full_path)
 
-f = open(dir_name+"/casos-de-teste/in1", "r")
+f = open(dir_name+"/casos-de-teste/"+sys.argv[1], "r")
 
 entrada = f.read()
 
-saida = open(dir_name+"/casos-de-teste/in1.out", "w")
+saida = open(dir_name+"/casos-de-teste/"+sys.argv[2], "w")
 
 INPUT_TAM = entrada.__len__()
 LINHA_ATUAL = 0

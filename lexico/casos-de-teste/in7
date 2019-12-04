@@ -9,8 +9,18 @@ PROGRAMAINICIO
         Mova 3 Passos
         Aguarde Ate Robo Pronto
     FIM
+    DEFINAINSTRUCAO Trilha COMO
+    INICIO
+        Mova 2 Passos
+        Aguarde Ate Robo Pronto
+        Vire Para ESQUERDA
+        Apague Lampada
+        Vire Para DIREITA
+        Mova 3 Passos
+        Aguarde Ate Robo Pronto
+    FIM
     EXECUCAOINICIO
         Repita 3 VEZES Trilha fimrepita
-        Vire Para DIREITA
+#       Vire Para DIREITA
     FIMEXECUCAO
 FIMPROGRAMA

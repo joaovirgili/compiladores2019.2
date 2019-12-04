@@ -1,6 +1,9 @@
-ERRO(3:39): Numérico com caractere Letra
-APagar 02 se mova inicio defina 1321509a instrucao enquanto
-                                       |                    
+ERRO(1:34): Numérico com caractere Letra
+asdAsdasdadjhjh12312768asd adas 23a 123123 asdas123123
+                                  |                    
+ERRO(3:9): Posição de comentário inválida. # apenas no início da linha
+APagar 02# se mova inicio defina 1321509a instrucao enquanto
+         |                                                   
 ERRO(4:22): Caractere desconhecido
 #alkdmalkm213098 12312$$
                       |  

@@ -4,6 +4,7 @@ PROGRAMAINICIO
         Mova 2 Passos
         Aguarde Ate Robo Pronto
         Vire Para ESQUERDA
+        Vire Para DIREITA
         Apague Lampada
         Vire Para DIREITA
         Mova 3 Passos
@@ -11,6 +12,6 @@ PROGRAMAINICIO
     FIM
     EXECUCAOINICIO
         Repita 3 VEZES Trilha fimrepita
-        Vire Para DIREITA
+#       Vire Para DIREITA
     FIMEXECUCAO
 FIMPROGRAMA
